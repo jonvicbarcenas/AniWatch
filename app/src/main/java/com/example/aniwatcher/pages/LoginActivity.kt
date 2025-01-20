@@ -7,7 +7,6 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.aniwatcher.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +21,9 @@ class LoginActivity : AppCompatActivity() {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
 
-            if (username == "admin" && password == "1234") {
+            if (username == "admin" && password == "123") {
                 // Navigate to the next page
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, ExoPlayerActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
