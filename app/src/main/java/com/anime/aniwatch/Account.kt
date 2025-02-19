@@ -1,27 +1,23 @@
 package com.anime.aniwatch
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.anime.aniwatch.databinding.FragmentAccountBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.FirebaseDatabase
-
 
 class AccountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,34 +30,38 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        // Load the saved email from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+        val savedEmail = sharedPreferences.getString("userEmail", "No Email")
+        binding.email.text = savedEmail ?: "No Email" // Display email as non-editable TextView
 
-        val userEmail = auth.currentUser?.email
-        binding.email.setText(userEmail ?: "No Email")
+        // Load the saved username from SharedPreferences
+        val savedUsername = sharedPreferences.getString("username", "Unknown User")
+        binding.fullName.text = savedUsername ?: "Unknown User"
 
-        if (uid != null) {
-            // Fetch the latest username from Firebase Realtime Database
-            databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val username = snapshot.child("username").getValue(String::class.java)
-                        binding.fullName.text = username ?: "Unknown User"  // Set the username in the TextView
-                    }
-                }
+        // Load the saved profile image from SharedPreferences
+        val savedImageResId = sharedPreferences.getInt("profileImageRes", R.drawable.account)  // Default image if not set
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(requireContext(), "Failed to load profile", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
+        // Set the image in the ImageView
+        val profileImageView: ImageView = binding.profile
+        profileImageView.setImageResource(savedImageResId)
 
-        // Navigate to ProfileEditActivity for updating username
+        // Navigate to ProfileEditActivity for updating username/email
         binding.editProfile.setOnClickListener {
             val intent = Intent(requireContext(), ProfileEditActivity::class.java)
             startActivityForResult(intent, 100)
         }
+
+        binding.security.setOnClickListener {
+            val intent = Intent(requireContext(), SecurityActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.settings.setOnClickListener {
+            val intent = Intent(requireContext(), SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // Handle logout action
         binding.logout.setOnClickListener {
@@ -69,14 +69,21 @@ class AccountFragment : Fragment() {
         }
     }
 
-    // Handle activity result for updated username
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
+
+        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == 100) {
+            // Get the updated username (if any)
             val updatedUsername = data?.getStringExtra("updatedUsername")
+            val updatedEmail = data?.getStringExtra("updatedEmail")
+
             if (!updatedUsername.isNullOrEmpty()) {
-                binding.fullName.text = updatedUsername // Update the username in UI
+                binding.fullName.text = updatedUsername
             }
+
+            val imageResId = data?.getIntExtra("selectedImage", R.drawable.account) ?: R.drawable.account
+            val profileImageView: ImageView = binding.profile
+            profileImageView.setImageResource(imageResId)
         }
     }
 
@@ -99,11 +106,22 @@ class AccountFragment : Fragment() {
         dialog.show()
     }
 
+
     private fun logoutUser() {
-        auth.signOut()
-        val intent = Intent(activity, SplashActivity::class.java)
+        val sharedPreferences = requireContext().getSharedPreferences("loginPrefs", AppCompatActivity.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+
+        editor.remove("userEmail")
+        editor.remove("userPassword")
+
+
+        editor.apply()
+
+        val intent = Intent(activity, SignIn::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+
     }
 
     override fun onDestroyView() {

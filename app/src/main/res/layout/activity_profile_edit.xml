@@ -62,7 +62,7 @@
                     android:background="@drawable/line"
                     android:hint="Display name"
                     android:padding="10dp"
-                    android:textColorHint="@color/black"
+                    android:textColorHint="@color/white"
                     android:textSize="18sp" />
 
                 <EditText
@@ -76,7 +76,7 @@
                     android:background="@drawable/line"
                     android:hint="Email"
                     android:padding="10dp"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <Button
@@ -90,6 +90,8 @@
                     android:backgroundTint="@color/blue"
                     android:text="Update"
                     android:textColor="@color/black" />
+
+
             </RelativeLayout>
 
         </LinearLayout>

@@ -81,4 +81,7 @@ dependencies {
     // 🔹 ViewPager2 & RecyclerView
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.core:core:1.7.0")
+
+
 }
