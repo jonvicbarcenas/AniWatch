@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.googleprogressbar)
     implementation(libs.picasso)
 
+
     // 🔹 AndroidX Core Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -83,5 +84,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.core:core:1.7.0")
 
+    // 🔹 Retrofit & GSON
+    implementation("com.google.code.gson:gson:2.10.1")
 
 }

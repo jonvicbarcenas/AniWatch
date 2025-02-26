@@ -17,7 +17,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        // Set up the toolbar with a back button
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -26,22 +26,20 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        // Initialize the ExpandableListView
+
         expandableListView = findViewById(R.id.expandableListView)
         expandableListView.divider = resources.getDrawable(android.R.color.transparent, null)
         expandableListView.dividerHeight = 0
-        // Generate the data for the expandable list
         listData = generateData()
 
-        // Set up the adapter
-        adapter = ExpandableListAdapter(this, listData)  // Pass context as 'this'
+
+        adapter = ExpandableListAdapter(this, listData)
         expandableListView.setAdapter(adapter)
     }
 
     private fun generateData(): HashMap<String, List<List<String>>> {
         val data = HashMap<String, List<List<String>>>()
 
-        // Group: Developers with sub-items (Person 1, Person 2)
         val developers = listOf(
             listOf(getString(R.string.person1_name), getString(R.string.person1_bio), getString(R.string.person1_experience)),  // Person 1 details
             listOf(getString(R.string.person2_name), getString(R.string.person2_bio), getString(R.string.person2_experience))  // Person 2 details
