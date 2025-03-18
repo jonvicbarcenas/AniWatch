@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">AniWatch</string>
+
+    <!-- Movie Titles -->
+    <string-array name="movie_titles">
+        <item>One Piece</item>
+        <item>Naruto</item>
+        <item>Bleach</item>
+        <item>Fairy Tail</item>
+        <item>Black Clover</item>
+        <item>Demon Slayer</item>
+    </string-array>
+
+    <!-- Movie Descriptions -->
+    <string-array name="movie_descriptions">
+        <item>One Piece is a popular manga and anime series created by Eiichiro Oda. Set in a world where pirates roam the seas, the story follows Monkey D. Luffy and his crew, the Straw Hat Pirates, as they search for the ultimate treasure known as the "One Piece" and strive to become the next Pirate King..</item>
+       <item>Naruto is a Japanese anime series and manga series about a young ninja named Naruto Uzumaki. The story follows Naruto as he overcomes challenges to become the leader of his village, the Hokage. </item>
+        <item>Bleach is a Japanese manga series written and illustrated by Tite Kubo. It follows the adventures of a teenager Ichigo Kurosaki, who obtains the powers of a Soul Reaper—a death personification similar to a Grim Reaper—from another Soul Reaper, Rukia Kuchiki.</item>
+        <item>Fairy Tail is a Japanese manga series written and illustrated by Hiro Mashima. The series follows the adventures of the Celestial Spirit Mage Lucy Heartfilia after she joins the Fairy Tail Guild and teams up with Natsu Dragneel. </item>
+         <item>Black Clover is set in a world where people are born with the ability to use magic, the story follows Asta, a young boy without any magic power who is given a rare grimoire that grants him anti-magic abilities. With his fellow mages from the Black Bulls, Asta plans to become the next Wizard King.</item>
+        <item>Demon Slayer is a Japanese manga series written and illustrated by Koyoharu Gotōge, and it is about Tanjiro Kamado, a young boy who becomes a demon slayer after his family is slaughtered and his younger sister Nezuko is turned into a demon.</item>
+    </string-array>
+
+    <!-- Movie Durations -->
+    <string-array name="movie_durations">
+        <item>2h 5m</item>
+        <item>6h 50m</item>
+        <item>3h 45m</item>
+        <item>4h 45m</item>
+        <item>5h 45m</item>
+        <item>1h 45m</item>
+    </string-array>
+
+</resources>
