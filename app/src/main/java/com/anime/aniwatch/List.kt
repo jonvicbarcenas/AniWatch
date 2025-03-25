@@ -37,7 +37,7 @@ class ListFragment : Fragment() {
         val fragmentAdapter = FragmentAdapter(childFragmentManager) // Use childFragmentManager for nested fragments
         fragmentAdapter.addFragment(Watchlist(), "Watchlist")
         fragmentAdapter.addFragment(History(), "History")
-        fragmentAdapter.addFragment(Download(), "Download")
+//        fragmentAdapter.addFragment(Download(), "Download")
 
         viewPager.adapter = fragmentAdapter
         tabLayout.setupWithViewPager(viewPager)
